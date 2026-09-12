@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "omarchy-talks.settings",
+  "name": "Omarchy Talks Settings",
+  "version": "0.1.0",
+  "author": "Omarchy Talks",
+  "license": "MIT",
+  "description": "Voice selection for the Omarchy Talks text reader.",
+  "kinds": [
+    "panel"
+  ],
+  "entryPoints": {
+    "panel": "Settings.qml"
+  }
+}

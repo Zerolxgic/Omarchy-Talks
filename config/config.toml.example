@@ -1,0 +1,4 @@
+[voicebox]
+url = "http://127.0.0.1:17493"
+profile_id = "replace-with-existing-kokoro-profile-id"
+poll_interval = 0.05

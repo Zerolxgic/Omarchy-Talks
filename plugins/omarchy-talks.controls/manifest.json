@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "omarchy-talks.controls",
+  "name": "Omarchy Talks",
+  "version": "0.1.0",
+  "author": "Omarchy Talks",
+  "license": "MIT",
+  "description": "Transient, theme-native playback controls for the Omarchy Talks text reader.",
+  "kinds": [
+    "panel"
+  ],
+  "keepLoaded": true,
+  "entryPoints": {
+    "panel": "Controls.qml"
+  }
+}

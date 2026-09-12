@@ -1,0 +1,1 @@
+  "setup.omarchy-talks": {"icon":"󰔊","label":"Omarchy Talks","description":"Choose the reader voice","action":"omarchy-shell shell summon omarchy-talks.settings"},
