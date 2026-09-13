@@ -64,6 +64,10 @@ omarchy-talks doctor
 
 ## Demo
 
+
+https://github.com/user-attachments/assets/c6a0da2f-f216-4478-a3df-ae53a6ecd257
+
+
 [Watch the v0.1.0 demo](docs/media/omarchy-talks-v0.1-demo.mp4) to see selected-text read-aloud, native playback controls, and theme integration.
 
 ## Diagnostics
