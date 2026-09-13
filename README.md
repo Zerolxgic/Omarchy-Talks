@@ -12,6 +12,8 @@ Omarchy Talks is a native read-aloud tool for Omarchy. It captures the Wayland p
 - Keep speech local through a user-owned, pinned VoiceBox runtime.
 - Use `omarchy-talks doctor` and JSON CLI commands for clear runtime diagnostics.
 
+![Omarchy Talks playing selected text](docs/images/omarchy-talks-playing.png)
+
 ## v0.1.0
 
 v0.1.0 is the initial community release of Omarchy Talks.
@@ -45,6 +47,8 @@ The service listens on `127.0.0.1:17493` and uses the pinned revision recorded i
 
 Select text in any Wayland application and press **Super + Alt + R**. A new read replaces the active read. The transient playback surface can pause/resume or stop speech, and **Setup → Omarchy Talks** changes the voice for subsequent reads.
 
+![Omarchy Talks voice settings](docs/images/omarchy-talks-settings.png)
+
 ```bash
 omarchy-talks speak-selection
 omarchy-talks pause
@@ -57,6 +61,10 @@ omarchy-talks doctor
 ```
 
 `speak-selection` reads only the Wayland primary selection. It never falls back to the ordinary clipboard.
+
+## Demo
+
+[Watch the v0.1.0 demo](docs/media/omarchy-talks-v0.1-demo.mp4) to see selected-text read-aloud, native playback controls, and theme integration.
 
 ## Diagnostics
 
