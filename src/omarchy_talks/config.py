@@ -2,9 +2,11 @@
 import math
 import os
 import tempfile
+from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
 import tomllib
+from typing import Any
 from urllib.parse import urlsplit
 
 
@@ -21,17 +23,22 @@ class Config:
     path: Path | None = None
 
     @staticmethod
-    def default_path(environ=None) -> Path:
+    def default_path(environ: Mapping[str, str] | None = None) -> Path:
         environ = os.environ if environ is None else environ
         base = environ.get("XDG_CONFIG_HOME")
         return ((Path(base) if base else Path.home() / ".config") /
                 "omarchy-talks" / "config.toml")
 
     @classmethod
-    def from_sources(cls, environ=None, path: Path | None = None, require_profile=True):
+    def from_sources(
+        cls,
+        environ: Mapping[str, str] | None = None,
+        path: Path | None = None,
+        require_profile: bool = True,
+    ) -> "Config":
         environ = os.environ if environ is None else environ
         path = path or cls.default_path(environ)
-        values = {}
+        values: dict[str, Any] = {}
         if path.exists():
             try:
                 with path.open("rb") as stream:
@@ -54,6 +61,8 @@ class Config:
         )
         if not isinstance(url, str) or not isinstance(profile, str):
             raise ReaderError("Configuration: VoiceBox URL and profile ID must be strings")
+        if interval is None:
+            raise ReaderError("Configuration: poll interval must be finite and positive")
         url = url.rstrip("/")
         profile = profile.strip()
         try:
@@ -73,7 +82,9 @@ class Config:
             )
         return cls(url, profile, interval, path=path)
 
-    def persist_profile_id(self, profile_id: str, environ=None) -> "Config":
+    def persist_profile_id(
+        self, profile_id: str, environ: Mapping[str, str] | None = None
+    ) -> "Config":
         """Persist a verified VoiceBox profile without changing env precedence."""
         environ = os.environ if environ is None else environ
         if environ.get("OMARCHY_TALKS_PROFILE_ID"):
@@ -131,6 +142,6 @@ class Config:
         return Config(self.base_url, profile_id, self.poll_interval, self.timeout, path)
 
     @classmethod
-    def from_env(cls):
+    def from_env(cls) -> "Config":
         """Compatibility name retained for existing callers and tests."""
         return cls.from_sources()
