@@ -76,6 +76,44 @@ systemctl --user status omarchy-talks-voicebox.service
 journalctl --user -u omarchy-talks-voicebox.service
 ```
 
+### Hotkeys stopped working after an Omarchy or Hyprland update
+
+Omarchy Talks installs its read and stop hotkeys in `~/.config/hypr/bindings.lua`. An Omarchy/Hyprland configuration update may replace or regenerate that file and remove the Omarchy Talks binding block while leaving the reader runtime itself healthy.
+
+First verify that Omarchy Talks still works without the hotkey. Highlight some text and run:
+
+```bash
+omarchy-talks speak-selection
+```
+
+If the text is read aloud, check whether the bindings are still present:
+
+```bash
+grep -n -E 'omarchy-talks|SUPER \+ ALT \+ R' ~/.config/hypr/bindings.lua
+```
+
+If that returns no Omarchy Talks bindings, back up the file and restore the managed block:
+
+```bash
+cp ~/.config/hypr/bindings.lua ~/.config/hypr/bindings.lua.bak
+cat >> ~/.config/hypr/bindings.lua <<'EOF'
+
+-- >>> Omarchy Talks managed bindings >>>
+o.bind("SUPER + ALT + R", "Read/replace selection", "omarchy-talks speak-selection")
+o.bind("SUPER + ALT + SHIFT + R", "Stop speech", "omarchy-talks stop")
+-- <<< Omarchy Talks managed bindings <<<
+EOF
+hyprctl reload
+```
+
+Then verify that Omarchy sees them again:
+
+```bash
+omarchy menu keybindings --print | grep -i -E 'read/replace|stop speech'
+```
+
+If `hyprctl configerrors` reports errors, resolve those before assuming the Omarchy Talks runtime is at fault.
+
 Public unit tests can run without a graphical session:
 
 ```bash
